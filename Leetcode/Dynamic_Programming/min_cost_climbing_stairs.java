@@ -1,15 +1,20 @@
 class Solution {
-    public int climbStairs(int n) {
-        if (n == 1) {
-            return 1;
+    public int minCostClimbingStairs(int[] cost) {
+        int size = cost.length;
+        for (int n = 2; n < size; n++) {
+            if (cost[n - 1] < cost[n - 2]) {
+                cost[n] += cost[n - 1];
+            }
+            else {
+                cost[n] += cost[n - 2];
+            }
         }
-        int[] stairs = new int[n+1];
-        stairs[1]  = 1;
-        stairs[2]  = 2;
-        for (int i = 3; i <= n; i++) {
-            stairs[i] = stairs[i - 1] + stairs[i - 2];
-        }
-        return stairs[n];
         
+        if (cost[size - 1] < cost[size - 2]) {
+            return cost[size - 1];
+        }
+        else {
+            return cost[size - 2];
+        }
     }
 }
